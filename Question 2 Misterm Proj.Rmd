@@ -1,0 +1,70 @@
+---
+title: "Part 2 Bulleted Report"
+output: html_document
+date: "2023-03-22"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+The following graphic is a display of all the attempted field goals by the Brooklyn Nets from the 1999-00 season, up until the recent 2020-21 NBA season. The graphic is color coordinated by shot location, along with having seperate symbols clarifying if the field goal attempt was made or missed. The year or season that is being represented in the graphic is diplayed at the top as well for further understanding. 
+
+This code is only here in order to display the graphic. 
+```{r}
+library(nbastatR)
+library(ggplot2)
+library(magrittr)
+library(gganimate)
+library(tidyr)
+library(tidyverse)
+nets <- teams_shots(teams = "Brooklyn Nets", seasons = 2021, season_types = "Regular Season", measures = "FGA")
+nets_2 <- nets %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_3 <- teams_shots(teams = "Brooklyn Nets", seasons = 2000, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_4 <- teams_shots(teams = "Brooklyn Nets", seasons = 2001, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_5 <- teams_shots(teams = "Brooklyn Nets", seasons = 2002, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_6 <- teams_shots(teams = "Brooklyn Nets", seasons = 2003, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_7 <- teams_shots(teams = "Brooklyn Nets", seasons = 2004, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_8 <- teams_shots(teams = "Brooklyn Nets", seasons = 2005, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_9 <- teams_shots(teams = "Brooklyn Nets", seasons = 2006, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_10 <- teams_shots(teams = "Brooklyn Nets", seasons = 2007, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_11 <- teams_shots(teams = "Brooklyn Nets", seasons = 2008, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_12 <- teams_shots(teams = "Brooklyn Nets", seasons = 2009, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_13 <- teams_shots(teams = "Brooklyn Nets", seasons = 2010, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_14 <- teams_shots(teams = "Brooklyn Nets", seasons = 2011, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_15 <- teams_shots(teams = "Brooklyn Nets", seasons = 2012, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_16 <- teams_shots(teams = "Brooklyn Nets", seasons = 2013, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_17 <- teams_shots(teams = "Brooklyn Nets", seasons = 2014, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_18 <- teams_shots(teams = "Brooklyn Nets", seasons = 2015, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_19 <- teams_shots(teams = "Brooklyn Nets", seasons = 2016, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_20 <- teams_shots(teams = "Brooklyn Nets", seasons = 2017, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_21 <- teams_shots(teams = "Brooklyn Nets", seasons = 2018, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_22 <- teams_shots(teams = "Brooklyn Nets", seasons = 2019, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_23 <- teams_shots(teams = "Brooklyn Nets", seasons = 2020, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+
+allyears <- rbind(nets_2,nets_3,nets_4,nets_5,nets_6,nets_7,nets_8,nets_9,nets_10,nets_11,nets_12,nets_13,nets_14,nets_15,nets_16,nets_17,nets_18,nets_19,nets_20,nets_21,nets_22,nets_23)
+
+plot_2 <- ggplot(data = allyears) + geom_point(aes(x = x, y = y,col= zoneBasic, shape =typeEvent), size = 1 , alpha= 0.75) + xlim(26,-26) + ylim(0, 50) + ggtitle("Brooklyn nets 2000-21") + xlab("Baseline (ft)") + ylab("Sideline (ft)") + theme_gray()
+
+a <- plot_2 + transition_time(yearSeason) + labs(title = 'Year: {frame_time}')
+animate(a, duration = 20)
+
+a
+```
+
+
+
+* The more desnely populated area the more shots taken in that area
+* Early on around the 1999-00 season, the majority of shots are taken within the ark
+* In the paint and midrange shots are dense and full early on
+* As the years continue we see these shots become less densely populated 
+* In the recent years (2020-21) shots are moving further out towards the 3-point line
+* The teams shots are changing to prioritze the 3-point shot
+
+
+More Detailed Explanation: 
+The graphic is a representation of field goal attempts starting from year 1999-00 and ending at the 2020-21 NBA season. The graphic represents an actual NBA court with the x-axis representing the baseline and y-axis as the sideline. Point (0,0) represents the hoop or the closest you can be to the basket, going out to beyond half court (50 on y-axis) to show all the shots in a reasonable manner. Different colors are indicators for the location of where the shot was taken on the floor, for example the pink cluster of dots shows field goal attempts of right corner 3-point shots. With this an indicated shot shown as a circle on the graphic is a made shot, while a triangle means the individual missed the shot. What we can determine as the years go on is the clear representation that the team has prioritized the 3-point shot compared to a mid-range shot in recent years. The cluster of points that represent field goal attempts seemingly favor the 3-point line towards the 2020-21 NBA season. To answer the question of are the team shots changing, yes the team shots are changing in respect to favoring 3-point shots over the mid-range. 
+
+

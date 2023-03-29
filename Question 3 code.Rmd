@@ -1,0 +1,85 @@
+---
+title: "Question 3 code"
+output: html_document
+date: "2023-03-23"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+First, we are going to pull out a team from the data, along with their field goal attempts for a chosen year. From my example I am going to use the Brooklyn Nets and take out their attempts for the 2021 season into a table by itself first. 
+```{r}
+nets <- teams_shots(teams = "Brooklyn Nets", seasons = 2021, season_types = "Regular Season", measures = "FGA")
+```
+
+Now we are going to prep the data for the plot by clarifying our x and y variables. In doing so we divide by 10 to make the data more accurate in comparison to a an actual NBA sized basketball court. 
+```{r}
+nets_2 <- nets %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+```
+
+We will begin to plot the data using ggplot and the "ggplot2" package. We are going to use our data from the "nets_2" data that we just prepared. We are going to define our geom_point with the x's and y's we defined just above, along with coloring by zones where the shot was taken, using different shapes to show if the shot was made or missed,and changing the opacity to better see some points. 
+Just as a reminder, the items "zoneBasic" and "typeEvent" are pulled directly from the data for the Brooklyn Nets under nets_2.
+```{r}
+plot_1 <-ggplot(data = nets_2) + geom_point(aes(x = x, y = y,col= zoneBasic, shape =typeEvent), size = 1 , alpha= 0.75)
+```
+
+We can adjust this plot to match the dimensions of an NBA court, along with giving the plot appropriate titles, and labels on the x and y axis. We were also instructed to change the color to try and match the team colors, seeing as Brooklyn is a darker colored team, I used the gray theme to change the colors while still being able to understand the graph. 
+```{r}
+plot_2021 <- plot_1 + xlim(26,-26) + ylim(0, 50) + ggtitle("Brooklyn nets 2021") + xlab("Baseline (ft)") + ylab("Sideline (ft)") + theme_gray() 
+ggdraw(plot_2021)
+```
+
+Great, now we have successfully created a plot for a single year that shows every field goal attempted during the regular season. In order to successfully put up to 20 years on one plot, we are going to take the field goal attempts for each year from 1999-2021. In order to do this we will single out each year and the bind them together to create a data set that includes field goal attempts from 1999-2021.
+There is an easier way to do this and I tried to make the seasons = c(2000:2021), however this was not working for me which is why I decided to simply take each season and then combine them back into one data set. 
+
+```{r}
+nets_3 <- teams_shots(teams = "Brooklyn Nets", seasons = 2000, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_4 <- teams_shots(teams = "Brooklyn Nets", seasons = 2001, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_5 <- teams_shots(teams = "Brooklyn Nets", seasons = 2002, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_6 <- teams_shots(teams = "Brooklyn Nets", seasons = 2003, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_7 <- teams_shots(teams = "Brooklyn Nets", seasons = 2004, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_8 <- teams_shots(teams = "Brooklyn Nets", seasons = 2005, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_9 <- teams_shots(teams = "Brooklyn Nets", seasons = 2006, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_10 <- teams_shots(teams = "Brooklyn Nets", seasons = 2007, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_11 <- teams_shots(teams = "Brooklyn Nets", seasons = 2008, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_12 <- teams_shots(teams = "Brooklyn Nets", seasons = 2009, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_13 <- teams_shots(teams = "Brooklyn Nets", seasons = 2010, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_14 <- teams_shots(teams = "Brooklyn Nets", seasons = 2011, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_15 <- teams_shots(teams = "Brooklyn Nets", seasons = 2012, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_16 <- teams_shots(teams = "Brooklyn Nets", seasons = 2013, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_17 <- teams_shots(teams = "Brooklyn Nets", seasons = 2014, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_18 <- teams_shots(teams = "Brooklyn Nets", seasons = 2015, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_19 <- teams_shots(teams = "Brooklyn Nets", seasons = 2016, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_20 <- teams_shots(teams = "Brooklyn Nets", seasons = 2017, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_21 <- teams_shots(teams = "Brooklyn Nets", seasons = 2018, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_22 <- teams_shots(teams = "Brooklyn Nets", seasons = 2019, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+nets_23 <- teams_shots(teams = "Brooklyn Nets", seasons = 2020, season_types = "Regular Season", measures = "FGA") %>% mutate(x = as.numeric(as.character(locationX)) / 10, y = as.numeric(as.character(locationY))/10)
+```
+
+Now we can combine them into our data set 
+```{r}
+allyears <- rbind(nets_2,nets_3,nets_4,nets_5,nets_6,nets_7,nets_8,nets_9,nets_10,nets_11,nets_12,nets_13,nets_14,nets_15,nets_16,nets_17,nets_18,nets_19,nets_20,nets_21,nets_22,nets_23)
+```
+
+And create a knew plot that includes the field goal attempts from every year that we are looking at. This is simply to put all the data onto one plot by using our previous plot function that we created in order to prep it for an animation.  
+```{r}
+plot_2 <- ggplot(data = allyears) + geom_point(aes(x = x, y = y,col= zoneBasic, shape =typeEvent), size = 1 , alpha= 0.75) + xlim(26,-26) + ylim(0, 50) + ggtitle("Brooklyn nets 2000-21") + xlab("Baseline (ft)") + ylab("Sideline (ft)") + theme_gray()
+```
+
+Finally, this is very cluttered so in order to fix this we will animate the plot to show the field goal attempts for various parts of each year. To do this we are going to transition by each year which is in our data set as "yearSeason". Along with this we will add a title to our animated plot to show what point in each year we are at.
+```{r}
+a <- plot_2 + transition_time(yearSeason) + labs(title = 'Year: {frame_time}')
+```
+
+This animation is quite fast, however, we are able to slow this down to be able to see each part of the year clearer. With this we are able to see the trends of how field goals are changing from year to year which allows us to answer our question. 
+```{r}
+animate(a, duration = 20)
+```
+
+
+
+
+

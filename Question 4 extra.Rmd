@@ -1,0 +1,29 @@
+---
+title: "Question 4 extra"
+output: html_document
+date: "2023-03-26"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+For additional data I decided to change up the team that I was investigating to the Milwaukee Bucks. With this instead of using team shots that we already looked at, I am using "teams_annual_stats" to get widespread view of a multitude of different stats for every season the Bucks have played in the regular season. 
+```{r}
+new_data <- teams_annual_stats(teams = "Milwaukee Bucks",season_types = c("Regular Season"))
+```
+
+Using the "teams_annual_stats" function you get lots of different information for each season that can be looked at. I messed around with a few items like the free throws attempted and made, or 3 point attempts with 3 point percentage, and much more. After experiencing with some data I wanted to choose some items that made sense together to see if there was any sort of correlation within the data that I am pulling out. 
+With this first plot I wanted to see the correlation with Wins in a season with the attempted field goals. I chose to use wins as each season the same number of games is being played, however, wins can be different based on how well the team does. 
+```{r}
+ggplot(data =new_data) + geom_point(aes(x = new_data$wins, y= new_data$fga, col = new_data$pctFG))+ ggtitle("Wins vs FGA") + xlab("Wins") + ylab("Field Goals Attempted") + theme_gray()
+```
+I though this plotted data was very interesting as we can see that the number of field goals attempted in the different seasons is relatively similar for many years. My thought was that in season with more wins there would be more shots taken as the more shots you take should correlate to scoring more points which can lead to wins. The data shows relative similarity, however, there are points along the x-axis where the data in my set of data must have been corrupted and filled with 0. I also added the field goal percentage to see if there was any similarity along this field, however, it also seems to be equal across the plot. 
+
+Another plot that I found interesting was wins for every season matching up with total points fo reach season. My idea was that the more points the Bucks may have scored in the regular season would lead to more wins overall, or if this was not the case there would be no correlation. 
+```{r}
+ggplot(data =new_data) + geom_point(aes(x = new_data$wins, y= new_data$pts, col = new_data$ptsRank))+ ggtitle("Wins vs Points") + xlab("Wins") + ylab("Total points per season") + theme_gray()
+```
+From the plotted data we can see that majority of the seasons where the Bucks scored more points, they would also have more wins. The data is not a strong correlation by any means as there are both low scoring high win seasons and high scoring low win seasons. I also added the rank that the team was in points, so the darker the colored dot means the higher up the ranks the Bucks were compared to the rest of the NBA. I thought this set of data was interesting to see trends, another way that I could have dove deeper would be to include the playoffs as these plots only show the regular season data. With the playoffs team scoring would be much different and there would likely be a clear correlation for the teams that made the playoffs. 
